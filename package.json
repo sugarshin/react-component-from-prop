@@ -1,6 +1,6 @@
 {
   "name": "react-component-from-prop",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Creates a component that accepts a component as a prop and renders it with the remaining props.",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
