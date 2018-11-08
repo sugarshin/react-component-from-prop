@@ -1,0 +1,67 @@
+{
+  "name": "react-component-from-prop",
+  "version": "0.0.0",
+  "description": "Creates a component that accepts a component as a prop and renders it with the remaining props.",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "jest --config jest.config.json",
+    "test:coverage": "npm test -- --coverage",
+    "coverage-report-upload": "codecov",
+    "clean:lib": "if [ -d lib ]; then rm -rf lib; fi",
+    "clean": "npm run clean:lib",
+    "precompile": "npm run clean",
+    "compile:commonjs": "tsc --outDir lib --module commonjs",
+    "compile": "npm run compile:commonjs",
+    "_lint": "tslint -s node_modules/custom-tslint-formatters/formatters -t grouped",
+    "lint": "npm run _lint -- -p tsconfig.json",
+    "lint:fix": "npm run lint -- --fix",
+    "lint:lint-staged": "npm run _lin -- --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sugarshin/react-component-from-prop.git"
+  },
+  "keywords": [
+    "react",
+    "componentFromProp"
+  ],
+  "author": "sugarshin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sugarshin/react-component-from-prop/issues"
+  },
+  "homepage": "https://github.com/sugarshin/react-component-from-prop#readme",
+  "dependencies": {
+    "lodash.omit": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/enzyme": "^3.1.15",
+    "@types/enzyme-adapter-react-16": "^1.0.3",
+    "@types/jest": "^23.3.9",
+    "@types/lodash.omit": "^4.5.4",
+    "codecov": "^3.1.0",
+    "custom-tslint-formatters": "^2.4.0",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
+    "enzyme-to-json": "^3.3.4",
+    "husky": "^1.1.3",
+    "jest": "^23.6.0",
+    "lint-staged": "^8.0.4",
+    "prettier": "^1.15.1",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
+    "ts-jest": "^23.10.4",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.1.6"
+  },
+  "peerDependencies": {
+    "react": "^16.0.0 || ^15.0.0"
+  }
+}
