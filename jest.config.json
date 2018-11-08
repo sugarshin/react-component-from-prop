@@ -1,0 +1,19 @@
+{
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest"
+  },
+  "globals": {
+    "ts-jest": {
+      "tsConfig": "<rootDir>/tsconfig.test.json"
+    }
+  },
+  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "jsx",
+    "json"
+  ],
+  "setupTestFrameworkScriptFile": "<rootDir>/setup-test.ts"
+}

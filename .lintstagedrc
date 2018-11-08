@@ -1,0 +1,7 @@
+{
+  "*.{ts,tsx}": [
+    "prettier --write",
+    "yarn run lint:ts:lint-staged",
+    "git add"
+  ]
+}

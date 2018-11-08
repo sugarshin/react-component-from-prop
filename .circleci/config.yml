@@ -1,0 +1,79 @@
+version: 2
+
+references:
+  defaults: &defaults
+    working_directory: ~/react-component-from-prop
+  nodejs: &nodejs
+    <<: *defaults
+    docker:
+      - image: circleci/node:10.13.0
+  restore_yarn_cache: &restore_yarn_cache
+    name: Restoring Cache - yarn
+    keys:
+      - dependencies-yarn-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - dependencies-yarn-v1-{{ .Branch }}-
+  save_yarn_cache: &save_yarn_cache
+    key: dependencies-yarn-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+    paths:
+      - ~/.cache/yarn
+      - ./node_modules
+
+jobs:
+  test:
+    <<: *nodejs
+    steps:
+      - checkout
+      - restore_cache: *restore_yarn_cache
+      - run: yarn
+      - save_cache: *save_yarn_cache
+      - run:
+          name: Lint
+          command: yarn run lint
+      - run:
+          name: Tests
+          command: yarn run test:coverage
+      - run:
+          name: Upload Coverage Report
+          command: yarn run coverage-report-upload
+
+  build:
+    <<: *nodejs
+    steps:
+      - checkout
+      - restore_cache: *restore_yarn_cache
+      - run: yarn
+      - save_cache: *save_yarn_cache
+      - run:
+          name: Build assets
+          command: NODE_ENV=production yarn run compile
+      - persist_to_workspace:
+          root: lib
+          paths: .
+  
+  publish:
+    <<: *nodejs
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/react-component-from-prop/lib
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" >> ~/.npmrc
+      - run:
+          name: Publish package to npm and tagging
+          command: /bin/bash .circleci/publish-and-tagging.sh
+
+workflows:
+  version: 2
+  test_build_publish:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
+      - publish:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
