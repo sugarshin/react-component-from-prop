@@ -1,6 +1,6 @@
 version: 2
 
-references:
+refs:
   defaults: &defaults
     working_directory: ~/react-component-from-prop
   nodejs: &nodejs
