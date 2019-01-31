@@ -6,7 +6,7 @@ references:
   nodejs: &nodejs
     <<: *defaults
     docker:
-      - image: circleci/node:10.13.0
+      - image: circleci/node:10.15.1
   restore_yarn_cache: &restore_yarn_cache
     name: Restoring Cache - yarn
     keys:
