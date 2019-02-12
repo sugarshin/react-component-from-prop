@@ -15,5 +15,5 @@
     "jsx",
     "json"
   ],
-  "setupTestFrameworkScriptFile": "<rootDir>/setup-test.ts"
+  "setupFilesAfterEnv": ["<rootDir>/setup-test.ts"]
 }

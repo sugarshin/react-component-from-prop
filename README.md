@@ -10,7 +10,7 @@ Creates a component that accepts a component as a prop and renders it with the r
 This project is a just fork from [recompose](https://github.com/acdlite/recompose) .
 
 ```bash
-yarn add react-component-from-prop
+npm install react-component-from-prop
 ```
 
 ## Usage

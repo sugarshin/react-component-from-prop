@@ -7,15 +7,14 @@ references:
     <<: *defaults
     docker:
       - image: circleci/node:10.15.1
-  restore_yarn_cache: &restore_yarn_cache
-    name: Restoring Cache - yarn
+  restore_npm_cache: &restore_npm_cache
+    name: Restoring Cache - npm
     keys:
-      - dependencies-yarn-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      - dependencies-yarn-v1-{{ .Branch }}-
-  save_yarn_cache: &save_yarn_cache
-    key: dependencies-yarn-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - npm-v1-{{ checksum "package-lock.json" }}
+      - npm-v1-
+  save_npm_cache: &save_npm_cache
+    key: npm-v1-{{ checksum "package-lock.json" }}
     paths:
-      - ~/.cache/yarn
       - ./node_modules
 
 jobs:
@@ -23,29 +22,29 @@ jobs:
     <<: *nodejs
     steps:
       - checkout
-      - restore_cache: *restore_yarn_cache
-      - run: yarn
-      - save_cache: *save_yarn_cache
+      - restore_cache: *restore_npm_cache
+      - run: npm install
+      - save_cache: *save_npm_cache
       - run:
           name: Lint
-          command: yarn run lint
+          command: npm run lint
       - run:
           name: Tests
-          command: yarn run test:coverage
+          command: npm run test:coverage
       - run:
           name: Upload Coverage Report
-          command: yarn run coverage-report-upload
+          command: npm run coverage-report-upload
 
   build:
     <<: *nodejs
     steps:
       - checkout
-      - restore_cache: *restore_yarn_cache
-      - run: yarn
-      - save_cache: *save_yarn_cache
+      - restore_cache: *restore_npm_cache
+      - run: npm install
+      - save_cache: *save_npm_cache
       - run:
           name: Build assets
-          command: NODE_ENV=production yarn run compile
+          command: NODE_ENV=production npm run compile
       - persist_to_workspace:
           root: lib
           paths: .
