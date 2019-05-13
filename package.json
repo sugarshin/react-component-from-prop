@@ -41,7 +41,7 @@
   "devDependencies": {
     "@types/enzyme": "3.9.2",
     "@types/enzyme-adapter-react-16": "1.0.5",
-    "@types/jest": "24.0.12",
+    "@types/jest": "24.0.13",
     "@types/lodash.omit": "4.5.6",
     "codecov": "3.4.0",
     "custom-tslint-formatters": "2.4.0",
